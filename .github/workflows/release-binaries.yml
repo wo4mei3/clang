@@ -45,13 +45,6 @@ on:
 env:
   secrets.GITHUB_TOKEN: $ {{ secrets.MY_GITHUB_TOKEN }}
 
-run: |
-  mkdir -p ~/.ssh
-  echo "$MY_SSH_KEY" | tr -d '\r' > ~/.ssh/id_rsa
-  chmod 700 ~/.ssh/id_rsa
-  eval $(ssh-agent -s)
-  ssh-add ~/.ssh/id_rsa
-  ssh-keyscan -H github.com >> ~/.ssh/known_hosts
 
 permissions:
   contents: read # Default everything to read-only
@@ -77,7 +70,15 @@ jobs:
     - uses: actions/setup-python@39cd14951b08e74b54015e9e001cdefcf80e669f
       with:
         python-version: '3.12'
-
+    - name: Setup SSH key
+      run: |
+        mkdir -p ~/.ssh
+        echo "$MY_SSH_KEY" | tr -d '\r' > ~/.ssh/id_rsa
+        chmod 700 ~/.ssh/id_rsa
+        eval $(ssh-agent -s)
+        ssh-add ~/.ssh/id_rsa
+        ssh-keyscan -H github.com >> ~/.ssh/known_hosts
+        
     - name: Checkout LLVM
       uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
 
