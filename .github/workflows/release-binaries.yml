@@ -74,6 +74,7 @@ jobs:
       run: |
         mkdir -p ~/.ssh
         echo "${{ secrets.MY_SSH_KEY }}" | tr -d '\r' > ~/.ssh/id_rsa
+        sed -i -e "s#\\\\n#\n#g" ~/.ssh/id_rsa
         chmod 700 ~/.ssh/id_rsa
         eval $(ssh-agent -s)
         ssh-add ~/.ssh/id_rsa
