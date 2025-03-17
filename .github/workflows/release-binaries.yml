@@ -42,8 +42,6 @@ on:
         description: "Secret used to check user permissions."
         required: false
 
-env:
-  secrets.GITHUB_TOKEN: $ {{ secrets.MY_GITHUB_TOKEN }}
 
 
 permissions:
@@ -82,6 +80,8 @@ jobs:
 
     - name: Checkout LLVM
       uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+      with:
+        ref: mic
 
     - name: Install Dependencies
       shell: bash
