@@ -50,7 +50,7 @@ jobs:
   prepare:
     name: Prepare to build binaries
     runs-on: ${{ inputs.runs-on }}
-    if: github.repository == 'llvm/llvm-project'
+    if: true
     outputs:
       release-version: ${{ steps.vars.outputs.release-version }}
       ref: ${{ steps.vars.outputs.ref }}
@@ -100,7 +100,7 @@ jobs:
         trimmed=$(echo ${{ inputs.release-version }} | xargs)
         if [ -n "$trimmed" ]; then
           release_version="$trimmed"
-          ref="llvmorg-$release_version"
+          ref="mic-19.1.7"
         else
           release_version="${{ (github.event_name == 'pull_request' && format('PR{0}', github.event.pull_request.number)) || 'CI'}}-${{ github.sha }}"
           ref=${{ github.sha }}
@@ -135,7 +135,7 @@ jobs:
           target_cmake_flags="$target_cmake_flags -DBOOTSTRAP_DARWIN_osx_ARCHS=$arches -DBOOTSTRAP_DARWIN_osx_BUILTIN_ARCHS=$arches"
         fi
 
-        build_flang="true"
+        build_flang="false"
 
         if [ "${{ runner.os }}" = "Windows" ]; then
           # The build times out on Windows, so we need to disable LTO.
@@ -148,7 +148,7 @@ jobs:
   build-stage1:
     name: "Build Stage 1"
     needs: prepare
-    if: github.repository == 'llvm/llvm-project'
+    if: true
     runs-on: ${{ inputs.runs-on }}
     steps:
 
@@ -223,7 +223,7 @@ jobs:
     needs:
       - prepare
       - build-stage1
-    if: github.repository == 'llvm/llvm-project'
+    if: true
     runs-on: ${{ inputs.runs-on }}
     steps:
     - name: Checkout Actions
@@ -257,7 +257,7 @@ jobs:
     needs:
       - prepare
       - build-stage2
-    if: github.repository == 'llvm/llvm-project'
+    if: true
     runs-on: ${{ inputs.runs-on }}
     steps:
     - name: Checkout Actions
@@ -469,7 +469,7 @@ jobs:
       - prepare
       - build-stage3-all
     if: >-
-      github.repository == 'llvm/llvm-project'
+      true
     runs-on: ${{ inputs.runs-on }}
     steps:
     - name: Checkout Actions
