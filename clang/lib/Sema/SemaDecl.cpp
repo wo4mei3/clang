@@ -18078,7 +18078,9 @@ void Sema::ActOnTagFinishDefinition(Scope *S, Decl *TagD,
       RD->completeDefinition();
   }
 
-  if (auto *RD = dyn_cast<CXXRecordDecl>(Tag); getLangOpts().CPlusPlus) {
+  if (auto *RD = dyn_cast<CXXRecordDecl>(Tag)) {
+    if (getLangOpts().Mic)
+      break;
     FieldCollector->FinishClass();
     if (RD->hasAttr<SYCLSpecialClassAttr>()) {
       auto *Def = RD->getDefinition();
