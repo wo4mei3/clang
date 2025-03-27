@@ -18080,7 +18080,7 @@ void Sema::ActOnTagFinishDefinition(Scope *S, Decl *TagD,
 
   if (auto *RD = dyn_cast<CXXRecordDecl>(Tag)) {
     if (getLangOpts().Mic)
-      break;
+      goto out;
     FieldCollector->FinishClass();
     if (RD->hasAttr<SYCLSpecialClassAttr>()) {
       auto *Def = RD->getDefinition();
@@ -18106,6 +18106,8 @@ void Sema::ActOnTagFinishDefinition(Scope *S, Decl *TagD,
       MarkVTableUsed(RD->getLocation(), RD, /*DefinitionRequired=*/true);
   }
 
+  out:
+  
   // Exit this scope of this tag's definition.
   PopDeclContext();
 
