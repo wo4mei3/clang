@@ -302,8 +302,9 @@ jobs:
       with:
         build-prefix: ${{ steps.setup-stage.outputs.build-prefix }}
 
-  build-stage3-flang:
-    name: "Build Stage 3 Flang/MLIR/Bolt"
+
+  build-stage3-all:
+    name: "Build Stage 3"
     needs:
       - prepare
       - build-stage3-clang
@@ -322,56 +323,6 @@ jobs:
       uses: ./workflows/.github/workflows/release-binaries-setup-stage
       with:
         previous-artifact: build-stage3-clang
-
-    - name: Build Flang / MLIR / Bolt
-      shell: bash
-      run: |
-        # Build some of the mlir tools that take a long time to link
-        if [ "${{ needs.prepare.outputs.build-flang }}" = "true" ]; then
-          ninja -C ${{ steps.setup-stage.outputs.build-prefix }}/build/tools/clang/stage2-bins/ -j2 flang-new bbc
-        fi
-        ninja -C ${{ steps.setup-stage.outputs.build-prefix }}/build/tools/clang/stage2-bins/ \
-            mlir-bytecode-parser-fuzzer \
-            mlir-cpu-runner \
-            mlir-lsp-server \
-            mlir-opt \
-            mlir-query \
-            mlir-reduce \
-            mlir-text-parser-fuzzer \
-            mlir-translate \
-            mlir-transform-opt \
-            mlir-cat \
-            mlir-minimal-opt \
-            mlir-minimal-opt-canonicalize \
-            mlir-pdll-lsp-server \
-            llvm-bolt \
-            llvm-bolt-heatmap
-    
-    - name: Save Stage
-      uses: ./workflows/.github/workflows/release-binaries-save-stage
-      with:
-        build-prefix: ${{ steps.setup-stage.outputs.build-prefix }}
-
-  build-stage3-all:
-    name: "Build Stage 3"
-    needs:
-      - prepare
-      - build-stage3-flang
-    runs-on: ${{ inputs.runs-on }}
-    steps:
-    - name: Checkout Actions
-      uses: actions/checkout@v4
-      with:
-        ref: ${{ (github.event_name == 'pull_request' && github.sha) || 'main' }}
-        sparse-checkout: |
-          .github/workflows/
-        sparse-checkout-cone-mode: false
-        path: workflows
-    - name: Setup Stage
-      id: setup-stage
-      uses: ./workflows/.github/workflows/release-binaries-setup-stage
-      with:
-        previous-artifact: build-stage3-flang
 
     - name: Build Release Package
       shell: bash
