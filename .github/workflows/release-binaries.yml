@@ -145,7 +145,7 @@ jobs:
         echo "target-cmake-flags=$target_cmake_flags" >> $GITHUB_OUTPUT
         echo "build-flang=$build_flang" >> $GITHUB_OUTPUT
 
-  build-stage1:
+  release:
     name: "Build Stage 1"
     needs: prepare
     if: true
@@ -218,226 +218,23 @@ jobs:
       with:
         build-prefix: ${{ steps.setup-stage.outputs.build-prefix }}
 
-  build-stage2:
-    name: "Build Stage 2"
-    needs:
-      - prepare
-      - build-stage1
-    if: true
-    runs-on: ${{ inputs.runs-on }}
-    steps:
-    - name: Checkout Actions
-      uses: actions/checkout@v4
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        ref: ${{ (github.event_name == 'pull_request' && github.sha) || 'main' }}
-        sparse-checkout: |
-          .github/workflows/
-        sparse-checkout-cone-mode: false
-        path: workflows
-    - name: Setup Stage
-      id: setup-stage
-      uses: ./workflows/.github/workflows/release-binaries-setup-stage
+        tag_name: ${{ github.ref }}
+        release_name: Release ${{ github.ref }}
+        draft: false
+        prerelease: false
+
+    - name: Upload Release Asset
+      id: upload-release-asset 
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        previous-artifact: build-stage1
-
-    - name: Build Stage 2
-      # Re-enable once PGO builds are supported.
-      if: needs.prepare.outputs.enable-pgo == 'true'
-      shell: bash
-      run: |
-        ninja -C ${{ steps.setup-stage.outputs.build-prefix}}/build stage2-instrumented
-
-    - name: Save Stage
-      uses: ./workflows/.github/workflows/release-binaries-save-stage
-      with:
-        build-prefix: ${{ steps.setup-stage.outputs.build-prefix }}
-
-  build-stage3-clang:
-    name: "Build Stage 3 LLVM/Clang"
-    needs:
-      - prepare
-      - build-stage2
-    if: true
-    runs-on: ${{ inputs.runs-on }}
-    steps:
-    - name: Checkout Actions
-      uses: actions/checkout@v4
-      with:
-        ref: ${{ (github.event_name == 'pull_request' && github.sha) || 'main' }}
-        sparse-checkout: |
-          .github/workflows/
-        sparse-checkout-cone-mode: false
-        path: workflows
-    - name: Setup Stage
-      id: setup-stage
-      uses: ./workflows/.github/workflows/release-binaries-setup-stage
-      with:
-        previous-artifact: build-stage2
-
-    - name: Build LLVM/Clang
-      shell: bash
-      run: |
-        # There is a race condition on the MacOS builders and this command is here
-        # to help debug that when it happens.
-        ls -ltr ${{ steps.setup-stage.outputs.build-prefix }}/build
-        ninja -C ${{ steps.setup-stage.outputs.build-prefix }}/build stage2-clang
-        # Build some of the larger binaries here too.
-        ninja -C ${{ steps.setup-stage.outputs.build-prefix }}/build/tools/clang/stage2-bins/ \
-            clang-scan-deps \
-            modularize clangd \
-            clangd-indexer \
-            clang-check \
-            ${{ (runner.os == 'Linux' && 'clangd-fuzzer') || '' }} \
-            clang-tidy \
-            llc \
-            lli \
-            llvm-exegesis \
-            llvm-opt-fuzzer \
-            llvm-reduce \
-            llvm-lto \
-            dsymutil
-
-    - name: Save Stage
-      uses: ./workflows/.github/workflows/release-binaries-save-stage
-      with:
-        build-prefix: ${{ steps.setup-stage.outputs.build-prefix }}
-
-
-  build-stage3-all:
-    name: "Build Stage 3"
-    needs:
-      - prepare
-      - build-stage3-clang
-    runs-on: ${{ inputs.runs-on }}
-    steps:
-    - name: Checkout Actions
-      uses: actions/checkout@v4
-      with:
-        ref: ${{ (github.event_name == 'pull_request' && github.sha) || 'main' }}
-        sparse-checkout: |
-          .github/workflows/
-        sparse-checkout-cone-mode: false
-        path: workflows
-    - name: Setup Stage
-      id: setup-stage
-      uses: ./workflows/.github/workflows/release-binaries-setup-stage
-      with:
-        previous-artifact: build-stage3-clang
-
-    - name: Build Release Package
-      shell: bash
-      run: |
-        which cmake
-        ninja -C ${{ steps.setup-stage.outputs.build-prefix }}/build stage2-package
-        # Copy Release artifact to the workspace so it is easier to upload.
-        # This is necessary, because on Windows, the build-prefix path can
-        # only be used on bash steps, because it uses the form of /d/files/
-        # and other steps expect D:\files.
-        mv ${{ steps.setup-stage.outputs.build-prefix  }}/build/tools/clang/stage2-bins/${{ needs.prepare.outputs.release-binary-filename }} .
-
-    - uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 #v4.3.0
-      with:
-        name: ${{ runner.os }}-${{ runner.arch }}-release-binary
-        # Due to path differences on Windows when running in bash vs running on node,
-        # we need to search for files in the current workspace.
-        path: |
-          ${{ needs.prepare.outputs.release-binary-filename }}
-
-    # Clean up some build files to reduce size of artifact.
-    - name: Clean Up Build Directory
-      shell: bash
-      run: |
-        find ${{ steps.setup-stage.outputs.build-prefix }}/build -iname ${{ needs.prepare.outputs.release-binary-filename }} -delete
-        rm -Rf ${{ steps.setup-stage.outputs.build-prefix }}/build/tools/clang/stage2-bins/_CPack_Packages
-
-    - name: Save Stage
-      uses: ./workflows/.github/workflows/release-binaries-save-stage
-      with:
-        build-prefix: ${{ steps.setup-stage.outputs.build-prefix }}
-
-  upload-release-binaries:
-    name: "Upload Release Binaries"
-    needs:
-      - prepare
-      - build-stage3-all
-    if: >-
-      always() &&
-      github.event_name != 'pull_request' &&
-      needs.prepare.outputs.upload == 'true'
-    runs-on: ubuntu-22.04
-    permissions:
-      contents: write # For release uploads
-      id-token: write     # For artifact attestations
-      attestations: write # For artifact attestations
-
-    steps:
-    - name: Checkout Release Scripts
-      uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
-      with:
-        sparse-checkout: |
-          llvm/utils/release/github-upload-release.py
-          llvm/utils/git/requirements.txt
-        sparse-checkout-cone-mode: false
-
-    - name: 'Download artifact'
-      uses: actions/download-artifact@6b208ae046db98c579e8a3aa621ab581ff575935 # v4.1.1
-      with:
-        pattern: '*-release-binary'
-        merge-multiple: true
-
-    - name: Attest Build Provenance
-      id: provenance
-      uses: actions/attest-build-provenance@897ed5eab6ed058a474202017ada7f40bfa52940 # v1.0.0
-      with:
-        subject-path: ${{ needs.prepare.outputs.release-binary-filename }}
-
-    - name: Rename attestation file
-      run:
-        mv ${{ steps.provenance.outputs.bundle-path }} ${{ needs.prepare.outputs.release-binary-filename }}.jsonl
-
-    - name: Upload Build Provenance
-      uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808 #v4.3.3
-      with:
-        name: ${{ needs.prepare.outputs.release-binary-filename }}-attestation
-        path: ${{ needs.prepare.outputs.release-binary-filename }}.jsonl
-
-    - name: Install Python Requirements
-      run: |
-        pip install --require-hashes -r ./llvm/utils/git/requirements.txt
-
-    - name: Upload Release
-      shell: bash
-      run: |
-        ./llvm/utils/release/github-upload-release.py \
-        --token ${{ github.token }} \
-        --release ${{ needs.prepare.outputs.release-version }} \
-        upload \
-        --files ${{ needs.prepare.outputs.release-binary-filename }}*
-
-  test-stage3:
-    name: "Test Stage 3"
-    needs:
-      - prepare
-      - build-stage3-all
-    if: >-
-      true
-    runs-on: ${{ inputs.runs-on }}
-    steps:
-    - name: Checkout Actions
-      uses: actions/checkout@v4
-      with:
-        ref: ${{ (github.event_name == 'pull_request' && github.sha) || 'main' }}
-        sparse-checkout: |
-          .github/workflows/
-        sparse-checkout-cone-mode: false
-        path: workflows
-    - name: Setup Stage
-      id: setup-stage
-      uses: ./workflows/.github/workflows/release-binaries-setup-stage
-      with:
-        previous-artifact: build-stage3-all
-
-    - name: Run Tests
-      shell: bash
-      run: |
-        ninja -C ${{ steps.setup-stage.outputs.build-prefix }}/build stage2-check-all
+        asset_path: ./${{ steps.setup-stage.outputs.build-prefix }}.zip
+        asset_name: ${{ steps.setup-stage.outputs.build-prefix }}.zip
+        asset_content_type: application/zip
