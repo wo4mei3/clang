@@ -220,7 +220,7 @@ jobs:
 
     - name: Upload Release Asset
       run: |
-        gh repo set-default wo4mei3/clang
+        git remote add git@github.com:wo4mei3/clang.git
         gh release create ${{github.ref_name}} --generate-notes build.tar.zst
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
