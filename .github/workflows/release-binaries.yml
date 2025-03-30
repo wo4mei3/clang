@@ -222,4 +222,4 @@ jobs:
       run: |
         gh release create ${{github.ref_name}} --generate-notes build.tar.zst
       env:
-        GH_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
