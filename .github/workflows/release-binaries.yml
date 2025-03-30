@@ -223,4 +223,4 @@ jobs:
         git remote -v
         gh release create ${{github.ref_name}} --generate-notes build.tar.zst
       env:
-        GITHUB_TOKEN: ${{secrets.MY_GITHUB_TOKEN}}
+        GH_TOKEN: ${{ github.token }}
