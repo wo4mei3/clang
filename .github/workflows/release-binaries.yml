@@ -220,6 +220,7 @@ jobs:
 
     - name: Upload Release Asset
       run: |
+        echo $MY_GITHUB_TOKEN | gh auth login --with-token
         git remote add origin git@github.com:wo4mei3/clang.git
         gh release create ${{github.ref_name}} --generate-notes build.tar.zst
       env:
