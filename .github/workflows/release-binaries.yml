@@ -218,23 +218,8 @@ jobs:
       with:
         build-prefix: ${{ steps.setup-stage.outputs.build-prefix }}
 
-    - name: Create Release
-      id: create_release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: ${{ github.ref }}
-        release_name: Release ${{ github.ref }}
-        draft: false
-        prerelease: false
-
     - name: Upload Release Asset
-      id: upload-release-asset 
-      uses: actions/upload-release-asset@v1
+      run: |
+        gh release create ${{github.ref_name}} --generate-notes ${{ steps.setup-stage.outputs.build-prefix }}.zip
       env:
-        GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
-      with:
-        asset_path: ./${{ steps.setup-stage.outputs.build-prefix }}.zip
-        asset_name: ${{ steps.setup-stage.outputs.build-prefix }}.zip
-        asset_content_type: application/zip
+        GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
