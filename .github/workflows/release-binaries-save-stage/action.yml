@@ -32,13 +32,13 @@ runs:
     - name: Upload Stage 1 Source
       uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 #v4.3.0
       with:
-        name: ${{ runner.os }}-${{ runner.arch }}-${{ github.job }}-source
+        name: ${{ runner.os }}-${{ runner.arch }}-source
         path: llvm-project.tar.zst
         retention-days: 2
 
     - name: Upload Stage 1 Build Dir
       uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 #v4.3.0
       with:
-        name: ${{ runner.os}}-${{ runner.arch }}-${{ github.job }}-build
+        name: ${{ runner.os}}-${{ runner.arch }}-build
         path: build.tar.zst
         retention-days: 2
