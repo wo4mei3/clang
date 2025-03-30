@@ -220,7 +220,7 @@ jobs:
 
     - name: Upload Release Asset
       run: |
-        gh repo list \
+        gh repo list
         gh release create ${{github.ref_name}} --generate-notes build.tar.zst
       env:
         GITHUB_TOKEN: ${{secrets.MY_GITHUB_TOKEN}}
