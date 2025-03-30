@@ -220,6 +220,6 @@ jobs:
 
     - name: Upload Release Asset
       run: |
-        gh release create ${{github.ref_name}} --generate-notes ${{ runner.os}}-${{ runner.arch }}-release-build
+        gh release create ${{github.ref_name}} --generate-notes ./${{ runner.os}}-${{ runner.arch }}-release-build.zip
       env:
         GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
