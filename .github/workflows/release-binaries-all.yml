@@ -68,7 +68,9 @@ jobs:
           fi
           echo "release-version=$release_version" >> "$GITHUB_OUTPUT"
           echo "upload=$upload" >> "$GITHUB_OUTPUT"
-
+          echo $MY_GITHUB_TOKEN | gh auth login --with-token
+          git remote add origin git@github.com:wo4mei3/clang.git
+          gh release create ${{github.ref_name}}
   release-binaries-all:
     name: Build Release Binaries
     needs:
