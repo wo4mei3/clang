@@ -1,0 +1,2 @@
+/usr/bin/ar Dqc ../libLLVMCodeGenData.a CMakeFiles/LLVMCodeGenData.dir/OutlinedHashTree.cpp.o CMakeFiles/LLVMCodeGenData.dir/OutlinedHashTreeRecord.cpp.o
+/usr/bin/ranlib -D ../libLLVMCodeGenData.a

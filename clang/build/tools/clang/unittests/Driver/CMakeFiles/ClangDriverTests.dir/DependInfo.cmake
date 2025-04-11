@@ -1,0 +1,89 @@
+
+# Consider dependencies only in project.
+set(CMAKE_DEPENDS_IN_PROJECT_ONLY OFF)
+
+# The set of languages for which implicit dependencies are needed:
+set(CMAKE_DEPENDS_LANGUAGES
+  )
+
+# The set of dependency files which are needed:
+set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "/home/wo4mei3/micclang/llvm-project/clang/unittests/Driver/DXCModeTest.cpp" "tools/clang/unittests/Driver/CMakeFiles/ClangDriverTests.dir/DXCModeTest.cpp.o" "gcc" "tools/clang/unittests/Driver/CMakeFiles/ClangDriverTests.dir/DXCModeTest.cpp.o.d"
+  "/home/wo4mei3/micclang/llvm-project/clang/unittests/Driver/DistroTest.cpp" "tools/clang/unittests/Driver/CMakeFiles/ClangDriverTests.dir/DistroTest.cpp.o" "gcc" "tools/clang/unittests/Driver/CMakeFiles/ClangDriverTests.dir/DistroTest.cpp.o.d"
+  "/home/wo4mei3/micclang/llvm-project/clang/unittests/Driver/GCCVersionTest.cpp" "tools/clang/unittests/Driver/CMakeFiles/ClangDriverTests.dir/GCCVersionTest.cpp.o" "gcc" "tools/clang/unittests/Driver/CMakeFiles/ClangDriverTests.dir/GCCVersionTest.cpp.o.d"
+  "/home/wo4mei3/micclang/llvm-project/clang/unittests/Driver/ModuleCacheTest.cpp" "tools/clang/unittests/Driver/CMakeFiles/ClangDriverTests.dir/ModuleCacheTest.cpp.o" "gcc" "tools/clang/unittests/Driver/CMakeFiles/ClangDriverTests.dir/ModuleCacheTest.cpp.o.d"
+  "/home/wo4mei3/micclang/llvm-project/clang/unittests/Driver/MultilibBuilderTest.cpp" "tools/clang/unittests/Driver/CMakeFiles/ClangDriverTests.dir/MultilibBuilderTest.cpp.o" "gcc" "tools/clang/unittests/Driver/CMakeFiles/ClangDriverTests.dir/MultilibBuilderTest.cpp.o.d"
+  "/home/wo4mei3/micclang/llvm-project/clang/unittests/Driver/MultilibTest.cpp" "tools/clang/unittests/Driver/CMakeFiles/ClangDriverTests.dir/MultilibTest.cpp.o" "gcc" "tools/clang/unittests/Driver/CMakeFiles/ClangDriverTests.dir/MultilibTest.cpp.o.d"
+  "/home/wo4mei3/micclang/llvm-project/clang/unittests/Driver/SanitizerArgsTest.cpp" "tools/clang/unittests/Driver/CMakeFiles/ClangDriverTests.dir/SanitizerArgsTest.cpp.o" "gcc" "tools/clang/unittests/Driver/CMakeFiles/ClangDriverTests.dir/SanitizerArgsTest.cpp.o.d"
+  "/home/wo4mei3/micclang/llvm-project/clang/unittests/Driver/ToolChainTest.cpp" "tools/clang/unittests/Driver/CMakeFiles/ClangDriverTests.dir/ToolChainTest.cpp.o" "gcc" "tools/clang/unittests/Driver/CMakeFiles/ClangDriverTests.dir/ToolChainTest.cpp.o.d"
+  )
+
+# Targets to which this target links.
+set(CMAKE_TARGET_LINKED_INFO_FILES
+  "/home/wo4mei3/micclang/llvm-project/clang/build/lib/Target/X86/CMakeFiles/LLVMX86CodeGen.dir/DependInfo.cmake"
+  "/home/wo4mei3/micclang/llvm-project/clang/build/lib/Target/X86/AsmParser/CMakeFiles/LLVMX86AsmParser.dir/DependInfo.cmake"
+  "/home/wo4mei3/micclang/llvm-project/clang/build/lib/Target/X86/MCTargetDesc/CMakeFiles/LLVMX86Desc.dir/DependInfo.cmake"
+  "/home/wo4mei3/micclang/llvm-project/clang/build/lib/Target/X86/Disassembler/CMakeFiles/LLVMX86Disassembler.dir/DependInfo.cmake"
+  "/home/wo4mei3/micclang/llvm-project/clang/build/lib/Target/X86/TargetInfo/CMakeFiles/LLVMX86Info.dir/DependInfo.cmake"
+  "/home/wo4mei3/micclang/llvm-project/clang/build/lib/MC/CMakeFiles/LLVMMC.dir/DependInfo.cmake"
+  "/home/wo4mei3/micclang/llvm-project/clang/build/lib/Option/CMakeFiles/LLVMOption.dir/DependInfo.cmake"
+  "/home/wo4mei3/micclang/llvm-project/clang/build/lib/Support/CMakeFiles/LLVMSupport.dir/DependInfo.cmake"
+  "/home/wo4mei3/micclang/llvm-project/clang/build/lib/TargetParser/CMakeFiles/LLVMTargetParser.dir/DependInfo.cmake"
+  "/home/wo4mei3/micclang/llvm-project/clang/build/third-party/unittest/UnitTestMain/CMakeFiles/llvm_gtest_main.dir/DependInfo.cmake"
+  "/home/wo4mei3/micclang/llvm-project/clang/build/third-party/unittest/CMakeFiles/llvm_gtest.dir/DependInfo.cmake"
+  "/home/wo4mei3/micclang/llvm-project/clang/build/tools/clang/lib/Driver/CMakeFiles/clangDriver.dir/DependInfo.cmake"
+  "/home/wo4mei3/micclang/llvm-project/clang/build/tools/clang/lib/Basic/CMakeFiles/clangBasic.dir/DependInfo.cmake"
+  "/home/wo4mei3/micclang/llvm-project/clang/build/tools/clang/lib/Frontend/CMakeFiles/clangFrontend.dir/DependInfo.cmake"
+  "/home/wo4mei3/micclang/llvm-project/clang/build/lib/CodeGen/AsmPrinter/CMakeFiles/LLVMAsmPrinter.dir/DependInfo.cmake"
+  "/home/wo4mei3/micclang/llvm-project/clang/build/lib/Transforms/CFGuard/CMakeFiles/LLVMCFGuard.dir/DependInfo.cmake"
+  "/home/wo4mei3/micclang/llvm-project/clang/build/lib/CodeGen/GlobalISel/CMakeFiles/LLVMGlobalISel.dir/DependInfo.cmake"
+  "/home/wo4mei3/micclang/llvm-project/clang/build/lib/IRPrinter/CMakeFiles/LLVMIRPrinter.dir/DependInfo.cmake"
+  "/home/wo4mei3/micclang/llvm-project/clang/build/lib/Transforms/Instrumentation/CMakeFiles/LLVMInstrumentation.dir/DependInfo.cmake"
+  "/home/wo4mei3/micclang/llvm-project/clang/build/lib/CodeGen/SelectionDAG/CMakeFiles/LLVMSelectionDAG.dir/DependInfo.cmake"
+  "/home/wo4mei3/micclang/llvm-project/clang/build/lib/CodeGen/CMakeFiles/LLVMCodeGen.dir/DependInfo.cmake"
+  "/home/wo4mei3/micclang/llvm-project/clang/build/lib/Bitcode/Writer/CMakeFiles/LLVMBitWriter.dir/DependInfo.cmake"
+  "/home/wo4mei3/micclang/llvm-project/clang/build/lib/Transforms/ObjCARC/CMakeFiles/LLVMObjCARCOpts.dir/DependInfo.cmake"
+  "/home/wo4mei3/micclang/llvm-project/clang/build/lib/Target/CMakeFiles/LLVMTarget.dir/DependInfo.cmake"
+  "/home/wo4mei3/micclang/llvm-project/clang/build/lib/CodeGenTypes/CMakeFiles/LLVMCodeGenTypes.dir/DependInfo.cmake"
+  "/home/wo4mei3/micclang/llvm-project/clang/build/lib/MC/MCDisassembler/CMakeFiles/LLVMMCDisassembler.dir/DependInfo.cmake"
+  "/home/wo4mei3/micclang/llvm-project/clang/build/lib/WindowsDriver/CMakeFiles/LLVMWindowsDriver.dir/DependInfo.cmake"
+  "/home/wo4mei3/micclang/llvm-project/clang/build/tools/clang/lib/Parse/CMakeFiles/clangParse.dir/DependInfo.cmake"
+  "/home/wo4mei3/micclang/llvm-project/clang/build/tools/clang/lib/Serialization/CMakeFiles/clangSerialization.dir/DependInfo.cmake"
+  "/home/wo4mei3/micclang/llvm-project/clang/build/tools/clang/lib/Sema/CMakeFiles/clangSema.dir/DependInfo.cmake"
+  "/home/wo4mei3/micclang/llvm-project/clang/build/tools/clang/lib/APINotes/CMakeFiles/clangAPINotes.dir/DependInfo.cmake"
+  "/home/wo4mei3/micclang/llvm-project/clang/build/tools/clang/lib/Edit/CMakeFiles/clangEdit.dir/DependInfo.cmake"
+  "/home/wo4mei3/micclang/llvm-project/clang/build/tools/clang/lib/Analysis/CMakeFiles/clangAnalysis.dir/DependInfo.cmake"
+  "/home/wo4mei3/micclang/llvm-project/clang/build/tools/clang/lib/ASTMatchers/CMakeFiles/clangASTMatchers.dir/DependInfo.cmake"
+  "/home/wo4mei3/micclang/llvm-project/clang/build/tools/clang/lib/AST/CMakeFiles/clangAST.dir/DependInfo.cmake"
+  "/home/wo4mei3/micclang/llvm-project/clang/build/tools/clang/lib/Lex/CMakeFiles/clangLex.dir/DependInfo.cmake"
+  "/home/wo4mei3/micclang/llvm-project/clang/build/lib/Frontend/OpenMP/CMakeFiles/LLVMFrontendOpenMP.dir/DependInfo.cmake"
+  "/home/wo4mei3/micclang/llvm-project/clang/build/lib/Transforms/Scalar/CMakeFiles/LLVMScalarOpts.dir/DependInfo.cmake"
+  "/home/wo4mei3/micclang/llvm-project/clang/build/lib/Transforms/AggressiveInstCombine/CMakeFiles/LLVMAggressiveInstCombine.dir/DependInfo.cmake"
+  "/home/wo4mei3/micclang/llvm-project/clang/build/lib/Transforms/InstCombine/CMakeFiles/LLVMInstCombine.dir/DependInfo.cmake"
+  "/home/wo4mei3/micclang/llvm-project/clang/build/lib/Frontend/Offloading/CMakeFiles/LLVMFrontendOffloading.dir/DependInfo.cmake"
+  "/home/wo4mei3/micclang/llvm-project/clang/build/lib/Transforms/Utils/CMakeFiles/LLVMTransformUtils.dir/DependInfo.cmake"
+  "/home/wo4mei3/micclang/llvm-project/clang/build/lib/Analysis/CMakeFiles/LLVMAnalysis.dir/DependInfo.cmake"
+  "/home/wo4mei3/micclang/llvm-project/clang/build/lib/ProfileData/CMakeFiles/LLVMProfileData.dir/DependInfo.cmake"
+  "/home/wo4mei3/micclang/llvm-project/clang/build/lib/DebugInfo/Symbolize/CMakeFiles/LLVMSymbolize.dir/DependInfo.cmake"
+  "/home/wo4mei3/micclang/llvm-project/clang/build/lib/DebugInfo/DWARF/CMakeFiles/LLVMDebugInfoDWARF.dir/DependInfo.cmake"
+  "/home/wo4mei3/micclang/llvm-project/clang/build/lib/DebugInfo/PDB/CMakeFiles/LLVMDebugInfoPDB.dir/DependInfo.cmake"
+  "/home/wo4mei3/micclang/llvm-project/clang/build/lib/DebugInfo/MSF/CMakeFiles/LLVMDebugInfoMSF.dir/DependInfo.cmake"
+  "/home/wo4mei3/micclang/llvm-project/clang/build/lib/DebugInfo/BTF/CMakeFiles/LLVMDebugInfoBTF.dir/DependInfo.cmake"
+  "/home/wo4mei3/micclang/llvm-project/clang/build/lib/Object/CMakeFiles/LLVMObject.dir/DependInfo.cmake"
+  "/home/wo4mei3/micclang/llvm-project/clang/build/lib/MC/MCParser/CMakeFiles/LLVMMCParser.dir/DependInfo.cmake"
+  "/home/wo4mei3/micclang/llvm-project/clang/build/lib/DebugInfo/CodeView/CMakeFiles/LLVMDebugInfoCodeView.dir/DependInfo.cmake"
+  "/home/wo4mei3/micclang/llvm-project/clang/build/lib/IRReader/CMakeFiles/LLVMIRReader.dir/DependInfo.cmake"
+  "/home/wo4mei3/micclang/llvm-project/clang/build/lib/AsmParser/CMakeFiles/LLVMAsmParser.dir/DependInfo.cmake"
+  "/home/wo4mei3/micclang/llvm-project/clang/build/lib/TextAPI/CMakeFiles/LLVMTextAPI.dir/DependInfo.cmake"
+  "/home/wo4mei3/micclang/llvm-project/clang/build/tools/clang/lib/Support/CMakeFiles/clangSupport.dir/DependInfo.cmake"
+  "/home/wo4mei3/micclang/llvm-project/clang/build/lib/Frontend/HLSL/CMakeFiles/LLVMFrontendHLSL.dir/DependInfo.cmake"
+  "/home/wo4mei3/micclang/llvm-project/clang/build/lib/Bitcode/Reader/CMakeFiles/LLVMBitReader.dir/DependInfo.cmake"
+  "/home/wo4mei3/micclang/llvm-project/clang/build/lib/IR/CMakeFiles/LLVMCore.dir/DependInfo.cmake"
+  "/home/wo4mei3/micclang/llvm-project/clang/build/lib/BinaryFormat/CMakeFiles/LLVMBinaryFormat.dir/DependInfo.cmake"
+  "/home/wo4mei3/micclang/llvm-project/clang/build/lib/Remarks/CMakeFiles/LLVMRemarks.dir/DependInfo.cmake"
+  "/home/wo4mei3/micclang/llvm-project/clang/build/lib/Bitstream/Reader/CMakeFiles/LLVMBitstreamReader.dir/DependInfo.cmake"
+  "/home/wo4mei3/micclang/llvm-project/clang/build/lib/Demangle/CMakeFiles/LLVMDemangle.dir/DependInfo.cmake"
+  )
+
+# Fortran module output directory.
+set(CMAKE_Fortran_TARGET_MODULE_DIR "")

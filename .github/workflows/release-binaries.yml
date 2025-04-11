@@ -210,7 +210,7 @@ jobs:
             -DCMAKE_CXX_COMPILER_LAUNCHER=sccache
         ninja -v -C ${{ steps.setup-stage.outputs.build-prefix }}/build
 
-        cpack -C CPackConfig.make
+        cpack -C ${{ steps.setup-stage.outputs.build-prefix }}/build/CPackConfig.make
 
         # There is a race condition on the MacOS builders and this command is here
         # to help debug that when it happens.
