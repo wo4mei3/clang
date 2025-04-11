@@ -1,2 +1,0 @@
-/usr/bin/ar Dqc ../libLLVMSandboxIR.a CMakeFiles/LLVMSandboxIR.dir/SandboxIR.cpp.o CMakeFiles/LLVMSandboxIR.dir/Tracker.cpp.o
-/usr/bin/ranlib -D ../libLLVMSandboxIR.a
