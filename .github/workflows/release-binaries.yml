@@ -209,10 +209,9 @@ jobs:
             -DCMAKE_C_COMPILER_LAUNCHER=sccache \
             -DCMAKE_CXX_COMPILER_LAUNCHER=sccache
         ninja -v -C ${{ steps.setup-stage.outputs.build-prefix }}/build
-        
-        find ${{ steps.setup-stage.outputs.build-prefix }}/build -iname ${{ needs.prepare.outputs.release-binary-filename }} -delete
-        find ${{ steps.setup-stage.outputs.build-prefix }}/build -iname _CPack_Packages -prune -exec rm -r {} +
-   
+
+        cpack -C CPackConfig.make
+
         # There is a race condition on the MacOS builders and this command is here
         # to help debug that when it happens.
         ls -ltr ${{ steps.setup-stage.outputs.build-prefix }}/build
