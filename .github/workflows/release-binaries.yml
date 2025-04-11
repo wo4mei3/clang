@@ -207,14 +207,14 @@ jobs:
             -DBOOTSTRAP_LLVM_PARALLEL_LINK_JOBS=1 \
             -DBOOTSTRAP_CPACK_PACKAGE_FILE_NAME="${{ needs.prepare.outputs.release-binary-basename }}" \
             -DCMAKE_C_COMPILER_LAUNCHER=sccache \
-            -DCMAKE_CXX_COMPILER_LAUNCHER=sccache
-        ninja -v -C ${{ steps.setup-stage.outputs.build-prefix }}/build
-
-        cpack -C ${{ steps.setup-stage.outputs.build-prefix }}/build/CPackConfig.make -B ${{ steps.setup-stage.outputs.build-prefix }}/build
+            -DCMAKE_CXX_COMPILER_LAUNCHER=sccache \
+            -DCMAKE_INSTALL_PREFIX=${{ steps.setup-stage.outputs.build-prefix }}/install_dir
+        cmake --build ${{ steps.setup-stage.outputs.build-prefix }}/build
+        cmake --build ${{ steps.setup-stage.outputs.build-prefix }}/build --target install-distribtion
 
         # There is a race condition on the MacOS builders and this command is here
         # to help debug that when it happens.
-        ls -ltr ${{ steps.setup-stage.outputs.build-prefix }}/build
+        ls -ltr ${{ steps.setup-stage.outputs.build-prefix }}/install_dir
     
     - name: Save Stage
       uses: ./workflows-main/.github/workflows/release-binaries-save-stage

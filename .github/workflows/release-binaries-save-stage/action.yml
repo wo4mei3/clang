@@ -25,9 +25,9 @@ runs:
         # See https://unit42.paloaltonetworks.com/github-repo-artifacts-leak-tokens/
         rm -Rf .git/config
         # Windows does not support symlinks, so we need to dereference them.
-        tar --exclude build/ ${{ (runner.os == 'Windows' && '-h') || '' }} -c . | zstd -T0 -c > ../llvm-project.tar.zst
+        tar --exclude install_dir/ ${{ (runner.os == 'Windows' && '-h') || '' }} -c . | zstd -T0 -c > ../llvm-project.tar.zst
         mv ../llvm-project.tar.zst .
-        tar -C ${{ inputs.build-prefix }} -c build/ | zstd -T0 -c > build.tar.zst
+        tar -C ${{ inputs.build-prefix }} -c install_dir/ | zstd -T0 -c > build.tar.zst
 
     - name: Upload Stage 1 Source
       uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 #v4.3.0
