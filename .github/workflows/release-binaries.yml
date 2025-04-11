@@ -209,8 +209,7 @@ jobs:
             -DCMAKE_C_COMPILER_LAUNCHER=sccache \
             -DCMAKE_CXX_COMPILER_LAUNCHER=sccache \
             -DCMAKE_INSTALL_PREFIX=${{ steps.setup-stage.outputs.build-prefix }}/install_dir
-        cmake --build ${{ steps.setup-stage.outputs.build-prefix }}/build
-        cmake --build ${{ steps.setup-stage.outputs.build-prefix }}/build --target install-distribution
+        ninja install
 
         # There is a race condition on the MacOS builders and this command is here
         # to help debug that when it happens.
