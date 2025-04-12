@@ -26,6 +26,7 @@ runs:
         rm -Rf .git/config
 
         tar -C /tmp/build -c /tmp/build | zstd -T0 -c > build.tar.zst
+        tar -tf build.tar.zst
 
     - name: Upload Stage 1 Build Dir
       uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 #v4.3.0

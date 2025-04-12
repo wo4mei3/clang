@@ -219,7 +219,7 @@ jobs:
     - name: Save Stage
       uses: ./workflows-main/.github/workflows/release-binaries-save-stage
       with:
-        build-prefix: ${{ steps.setup-stage.outputs.build-prefix }}
+        build-prefix: /tmp/build
 
     - name: Upload Release Asset
       run: |
