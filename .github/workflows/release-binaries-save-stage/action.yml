@@ -24,8 +24,8 @@ runs:
         # Remove .git/config to avoid leaking GITHUB_TOKEN stored there.
         # See https://unit42.paloaltonetworks.com/github-repo-artifacts-leak-tokens/
         rm -Rf .git/config
-        
-        tar -C ${{ inputs.build-prefix }} -c /tmp/build | zstd -T0 -c > build.tar.zst
+
+        tar -C /tmp/build -c /tmp/build | zstd -T0 -c > build.tar.zst
 
     - name: Upload Stage 1 Build Dir
       uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 #v4.3.0
