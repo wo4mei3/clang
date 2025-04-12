@@ -216,10 +216,15 @@ jobs:
         # to help debug that when it happens.
         ls -ltr /tmp/build
     
-    - name: Save Stage
-      uses: ./workflows-main/.github/workflows/release-binaries-save-stage
+        tar -c /tmp/build | zstd -T0 -c > build.tar.zst
+        tar -tf build.tar.zst
+
+    - name: Upload Stage 1 Build Dir
+      uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 #v4.3.0
       with:
-        build-prefix: /tmp/build
+        name: ${{ runner.os}}-${{ runner.arch }}-build
+        path: build.tar.zst
+        retention-days: 2
 
     - name: Upload Release Asset
       run: |
