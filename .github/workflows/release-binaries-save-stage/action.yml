@@ -25,7 +25,7 @@ runs:
         # See https://unit42.paloaltonetworks.com/github-repo-artifacts-leak-tokens/
         rm -Rf .git/config
 
-        tar -C /tmp/build -c . | zstd -T0 -c > build.tar.zst
+        tar -c . | zstd -T0 -c > build.tar.zst
         # tar -tf build.tar.zst
 
     - name: Upload Stage 1 Build Dir
