@@ -13903,26 +13903,27 @@ void Sema::ActOnUninitializedDecl(Decl *RealDecl) {
 
     switch (DefKind) {
     case VarDecl::Definition:
-      if (!Var->isStaticDataMember() || !Var->getAnyInitializer())
-        break;
-      if (getLangOpts().Mic) {
-        for (auto *Typedef = Var->getType().getTypePtr()->getAs<TypedefType>();
-             Typedef; Typedef = Typedef->getDecl()
-                                  ->getUnderlyingType()
-                                  .getTypePtr()
-                                  ->getAs<TypedefType>()) {
-          if (Typedef->getDecl() == Context.getRegionDecl()) {
-            unsigned depth = CurScope->getDepth();
-            unsigned IntSize = Context.getTargetInfo().getIntWidth();
-            ExprResult Res =
-                IntegerLiteral::Create(Context, llvm::APInt(IntSize, depth),
-                                       Context.UnsignedIntTy, Var->getLocation());
-            Var->setInit(Res.get());
-            Var->setConstexpr(true);
-            break;
-          }
+    if (getLangOpts().Mic) {
+      for (auto *Typedef = Var->getType().getTypePtr()->getAs<TypedefType>();
+           Typedef; Typedef = Typedef->getDecl()
+                                ->getUnderlyingType()
+                                .getTypePtr()
+                                ->getAs<TypedefType>()) {
+        if (Typedef->getDecl() == Context.getRegionDecl()) {
+          unsigned depth = CurScope->getDepth();
+          unsigned IntSize = Context.getTargetInfo().getIntWidth();
+          ExprResult Res =
+              IntegerLiteral::Create(Context, llvm::APInt(IntSize, depth),
+                                     Context.UnsignedIntTy, Var->getLocation());
+          Var->setInit(Res.get());
+          Var->setConstexpr(true);
+          break;
         }
       }
+    }
+    
+      if (!Var->isStaticDataMember() || !Var->getAnyInitializer())
+        break;
 
       // We have an out-of-line definition of a static data member
       // that has an in-class initializer, so we type-check this like
